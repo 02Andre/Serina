@@ -49,7 +49,7 @@ def assistant(command):
             #Encrypt session
             mail.starttls()
             #login
-            mail.login( 'user', 'pass)
+            mail.login( 'user', 'pass')
             #send mail
             mail.sendmail('Lange', 'email ', content )
             #close connection
