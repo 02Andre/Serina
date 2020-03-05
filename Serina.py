@@ -35,7 +35,7 @@ def myCommand():
 def assistant(command):
     if 'look up' or 'search' in command:
         chrome_path = '/usr/bin/google-chrome'
-        url = 'https://www.https://www.google.com/?safe=active&ssui=on'
+        url = 'google.com'
         webbrowser.get(chrome_path).open(url)
     elif 'what\'s up' or 'how are you' in command:
         talkToMe('I\'m doing Lovely')
