@@ -9,6 +9,7 @@ import datetime
 import warnings
 import calendar
 import random
+import wikipedia
 import webbrowser
  #ignore any warning messages
 warnings.filterwarnings('ignore')
@@ -18,7 +19,6 @@ def recordAudio():
     r = sr.Recognizer() #creating a recognizer object
      #Open the microphone and start Recording
     with sr.Microphone()as source:
-        print('Say Something!')
         audio = r.listen(source)
         #Use Googles Speech
     data = ' '
@@ -26,7 +26,7 @@ def recordAudio():
         data = r.recognize_google(audio)
         print('you said: '+ data)
     except sr.UnknownValueError: #Check for unknown errors
-        print('Google Speech Recognition could not understand the audio, unknown error')
+        print('I\'m sorry i couldn\'t understand all I got was:' + data+'?')
     except sr.Request as e:
         print('Request results from google Speech service error '+ e)
     return data
@@ -84,9 +84,13 @@ def getPerson(text):
     wordList = text.split()
 
     for i in range(0, len(wordList)):
-        if i + 3 <= len(wordList) - 1 and wordlist[i].lower() == 'who' and wordList[i+1].lower() == 'is':
+        if i + 3 <= len(wordList) - 1 and wordList[i].lower() == 'who' and wordList[i+1].lower() == 'is':
             return wordList[i+2] + ' '+ wordList[i+3]
-
+#open and search on google chrome
+def search():
+    chrome_path = '/usr/bin/google-chrome'
+    url = 'google.com'
+    webbrowser.get(chrome_path).open(url)
 while True:
     text = recordAudio() #records the audio
     response = ''
@@ -113,6 +117,14 @@ while True:
             else:
                 minute = str(now.minute)
             response = response+ ' '+'It is '+str(hour)+ ':'+ minute+' '+meridiem+' .'
+
+            if('who is'in text):
+                person = getPerson(text)
+                wiki = wikipedia.summary(person, sentences=2)
+                response = response + ' '+ wiki
+
+
+        assistanResponse(response)
 
 
 
