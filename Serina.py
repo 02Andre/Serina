@@ -42,7 +42,7 @@ def assistanResponse(text):
     os.system('start assistant_response.mp3')
 
 #creat A function for wake word(s) or phrase
-def wakeWords(text):
+def wakeWord(text):
     WAKE_WORDS = ['hey Serina', 'okay Serina', 'Serina'] #list of words
 
     text = text.lower() # converting the text to all lower case words
@@ -72,5 +72,53 @@ def getDate():
 
 # A function to return a random greeting response
 def greeting(text):
+    GREETING_INPUT = ['hi','hey','hello', 'sup', 'whats up']
+    GREETING_RESPONSES = ['howdy', 'hello', 'hi', 'yo']
+    for word in text.split():
+        if word.lower() in GREETING_INPUT:
+            return random.choice(GREETING_RESPONSES) + '.'
+    return ''
+#Afunction to get a person first and last name
+def getPerson(text):
+
+    wordList = text.split()
+
+    for i in range(0, len(wordList)):
+        if i + 3 <= len(wordList) - 1 and wordlist[i].lower() == 'who' and wordList[i+1].lower() == 'is':
+            return wordList[i+2] + ' '+ wordList[i+3]
+
+while True:
+    text = recordAudio() #records the audio
+    response = ''
+    if(wakeWord(text)== True):
+        response = response + greeting(text) #checks for greeting by user
+
+        if ('date' in text): #checks to see if user asked for the date
+            get_date = getDate()
+            response = response + ' '+get_date
+        #checks to see if user wanted the time
+        if('time' in text):
+            now = datetime.datetime.now()
+            meridiem = ' '
+            if now.hour >=12:
+                meridiem = 'p.m'# Post meridiem (PM)
+                hour = now.hour - 12
+            else:
+                meridiem = 'a.m'# ante Meridiem (AM)
+                hour = now.hour
+
+            #convert minute into proper string
+            if now.minute <10:
+                minute = '0'+str(now.minute)
+            else:
+                minute = str(now.minute)
+            response = response+ ' '+'It is '+str(hour)+ ':'+ minute+' '+meridiem+' .'
+
+
+
+
+
+
+
 
 
