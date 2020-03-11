@@ -10,7 +10,6 @@ import warnings
 import calendar
 import random
 import wikipedia
-import webbrowser
  #ignore any warning messages
 warnings.filterwarnings('ignore')
 
@@ -43,7 +42,7 @@ def assistanResponse(text):
 
 #creat A function for wake word(s) or phrase
 def wakeWord(text):
-    WAKE_WORDS = ['hey Serina', 'okay Serina', 'Serina'] #list of words
+    WAKE_WORDS = ['hey Serena', 'okay Serena', 'Serena'] #list of words
 
     text = text.lower() # converting the text to all lower case words
 
@@ -86,11 +85,7 @@ def getPerson(text):
     for i in range(0, len(wordList)):
         if i + 3 <= len(wordList) - 1 and wordList[i].lower() == 'who' and wordList[i+1].lower() == 'is':
             return wordList[i+2] + ' '+ wordList[i+3]
-#open and search on google chrome
-def search():
-    chrome_path = '/usr/bin/google-chrome'
-    url = 'google.com'
-    webbrowser.get(chrome_path).open(url)
+
 while True:
     text = recordAudio() #records the audio
     response = ''
